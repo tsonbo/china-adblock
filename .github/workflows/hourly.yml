@@ -1,0 +1,47 @@
+name: hourly-build
+
+on:
+  schedule:
+    # 每小时第 7 分钟构建（避开整点高峰）
+    - cron: "7 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "output/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hourly-build
+  # 新运行取消尚未完成的旧运行，避免并发推送导致 non-fast-forward
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build aggregated lists
+        run: python build.py --out output
+
+      - name: Commit & push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output
+          if git diff --cached --quiet; then
+            echo "no changes"
+            exit 0
+          fi
+          git commit -m "chore: hourly rebuild $(date -u +%FT%TZ)"
+          git pull --rebase --autostash origin main
+          git push

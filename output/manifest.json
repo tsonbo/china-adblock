@@ -1,0 +1,39 @@
+{
+  "updated_utc": "2026-10-03T17:44:20Z",
+  "unique_block_domains": 111709,
+  "allow_domains": 61,
+  "sources": [
+    {
+      "name": "anti-AD",
+      "url": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-domains.txt",
+      "lines": 107697,
+      "block": 107693,
+      "allow": 0,
+      "ok": true
+    },
+    {
+      "name": "Cats-Team/AdRules",
+      "url": "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adblock.txt",
+      "lines": 138050,
+      "block": 74381,
+      "allow": 31,
+      "ok": true
+    },
+    {
+      "name": "ADgk",
+      "url": "https://raw.githubusercontent.com/banbendalao/ADgk/master/ADgk.txt",
+      "lines": 9158,
+      "block": 3034,
+      "allow": 29,
+      "ok": true
+    },
+    {
+      "name": "xinggsf-Adblock-Plus-Rule",
+      "url": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/master/rule.txt",
+      "lines": 1249,
+      "block": 81,
+      "allow": 1,
+      "ok": true
+    }
+  ]
+}
