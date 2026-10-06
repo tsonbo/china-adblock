@@ -84,6 +84,23 @@ EXTRA = {
     "chuanshanjia.com", "dftoutiao.com", "adview.cn", "ipinyou.com",
 }
 
+# 补充：App 内置的 HTTPDNS / DoH 解析端点（2026-10-06 新增）
+#   这些域名本身不是广告，但 App 用它们做「加密 DNS 解析」以**绕过系统 DNS**（AdGuard Home），
+#   导致其广告域名无法被过滤。封堵后 App 会回落到系统 DNS，广告域名即可被拦截。
+#   注意：会关闭对应 App 的私有加密 DNS，属预期行为（换取可过滤）。
+EXTRA_HTTPDNS = {
+    "doh.jd.com",                      # 京东 DoH
+    "doh.zhihu.com",                   # 知乎 DoH
+    "httpdns.alicdn.com",              # 阿里 HTTPDNS（淘宝/京东/知乎等大量 App 共用）
+    "httpdns.kwd.inkuai.com",          # 快看点/字跳系 HTTPDNS
+    "union-httpdns.gslb.yy.com",       # YY HTTPDNS
+    "httpdns.c.cdnhwc2.com",           # 华为 HTTPDNS（部分 App 引用）
+    "kuaishou.httpdns.pro",            # 快手 HTTPDNS
+    # 如需一并封堵公共加密 DNS（会强制相关设备回落明文 DNS），可取消注释：
+    # "doh.pub",                       # 腾讯公共 DoH
+    # "dns.alidns.com",                # 阿里公共 DoT（Android「私人 DNS」常用）
+}
+
 
 def _parents(d):
     """严格父域（至少去掉一层标签），如 a.b.com -> b.com。"""
@@ -194,8 +211,8 @@ def main():
         stats.append({"name": name, "url": u, "lines": n, "block": b, "allow": a, "ok": True})
         time.sleep(0.3)
 
-    # 0) 并入精选补充项
-    block |= EXTRA
+    # 0) 并入精选补充项（含 App 内置 HTTPDNS/DoH 端点）
+    block |= EXTRA | EXTRA_HTTPDNS
 
     # 1) 白名单：精确 + **父域覆盖**（@@||a.com^ 应放行 a.com 及其子域）
     final = sorted(d for d in block if not _covered(d, allow))

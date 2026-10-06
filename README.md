@@ -35,6 +35,41 @@
 
 定稿后聚合去重结果：**约 151,800 个唯一拦截域名**（未扣白名单前的估算）。
 
+## 内置补充规则（EXTRA / EXTRA_HTTPDNS）
+
+除上游源外，`build.py` 内置两组「精选补充域名」，与上游结果一并参与白名单过滤与去重后输出：
+
+| 集合 | 内容 | 说明 |
+|---|---|---|
+| `EXTRA` | 中国常见广告/跟踪平台 | 上游未覆盖的少量精选（`mmstat.com`、`umeng.com`、`mobads.cn` 等） |
+| `EXTRA_HTTPDNS` | App 内置 HTTPDNS / DoH 端点 | **2026-10-06 新增**，见下 |
+
+### EXTRA_HTTPDNS：为什么要拦 App 自带的加密 DNS
+
+很多国产 App（京东、知乎、快手、YY、淘宝系等）**自带加密 DNS 解析器（HTTPDNS / DoH）**，
+不查系统 DNS，而是直接向自家端点发起加密请求解析域名。后果是：
+**在路由器 / AdGuardHome 上做的去广告对这些 App 完全无效**——因为请求从未经过你的 DNS。
+
+把这些端点加入拦截后，App 会**回落到系统 DNS**，其广告域名才能被正常过滤。
+
+当前内置：
+
+```
+doh.jd.com                    京东 DoH
+doh.zhihu.com                 知乎 DoH
+httpdns.alicdn.com            阿里 HTTPDNS（淘宝/京东/知乎等共用）
+httpdns.kwd.inkuai.com        字跳系 HTTPDNS
+union-httpdns.gslb.yy.com     YY HTTPDNS
+httpdns.c.cdnhwc2.com         华为 HTTPDNS
+kuaishou.httpdns.pro          快手 HTTPDNS
+```
+
+> 公共 DoH/DoT（`doh.pub`、`dns.alidns.com`）默认**不拦**（可能影响设备「私人 DNS」）。
+> 如需强制回落，可在 `build.py` 的 `EXTRA_HTTPDNS` 中取消注释。
+
+> **已知局限**：App **开屏广告**若与主站同域（如 `api.m.jd.com`），DNS 层无法按路径拦截，
+> 需应用层跳过工具（GKD、李跳跳等）。DNS 去广告只能拦「独立广告域名」。
+
 ## 本地运行
 
 ```sh
