@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-10-11T15:32:08Z",
-  "unique_block_domains": 113579,
+  "updated_utc": "2026-10-11T20:08:32Z",
+  "unique_block_domains": 113667,
   "allow_domains": 61,
   "sources": [
     {
@@ -14,8 +14,8 @@
     {
       "name": "Cats-Team/AdRules",
       "url": "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adblock.txt",
-      "lines": 139177,
-      "block": 75898,
+      "lines": 139269,
+      "block": 75986,
       "allow": 31,
       "ok": true
     },
