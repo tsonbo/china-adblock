@@ -1,21 +1,21 @@
 {
-  "updated_utc": "2026-10-13T21:08:21Z",
-  "unique_block_domains": 114223,
+  "updated_utc": "2026-10-14T01:03:45Z",
+  "unique_block_domains": 114404,
   "allow_domains": 61,
   "sources": [
     {
       "name": "anti-AD",
       "url": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-domains.txt",
-      "lines": 109450,
-      "block": 109446,
+      "lines": 110168,
+      "block": 110164,
       "allow": 0,
       "ok": true
     },
     {
       "name": "Cats-Team/AdRules",
       "url": "https://raw.githubusercontent.com/Cats-Team/AdRules/main/adblock.txt",
-      "lines": 139821,
-      "block": 76470,
+      "lines": 139990,
+      "block": 76610,
       "allow": 31,
       "ok": true
     },
