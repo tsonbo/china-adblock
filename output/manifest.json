@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-11-10T23:06:42Z",
-  "unique_block_domains": 115268,
+  "updated_utc": "2026-11-11T02:43:54Z",
+  "unique_block_domains": 112955,
   "allow_domains": 63,
   "sources": [
     {
       "name": "anti-AD",
       "url": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-domains.txt",
-      "lines": 110674,
-      "block": 110670,
+      "lines": 109243,
+      "block": 109239,
       "allow": 0,
       "ok": true
     },
