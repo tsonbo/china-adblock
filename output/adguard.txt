@@ -1,5 +1,5 @@
 ! Title: china-adblock aggregated
-! Updated: 2026-11-18T03:34:30Z
+! Updated: 2026-11-18T12:54:13Z
 ! Count: 113676
 ! Homepage: (this repo)
 ||0.myikas.com^
